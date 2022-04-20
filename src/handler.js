@@ -35,9 +35,9 @@ const addBookHandler = (request, h) => {
     };
 
     books.push(newBook);
-
+    
     const isSuccess = books.filter((book) => book.id === id).length > 0;
-    const isBookHasOwnProperty = books.hasOwnProperty('name');
+    const isBookHasOwnPropertyName = request.payload.hasOwnProperty('name');
     const isReadPageMoreThanPage = readPage>pageCount;
 
     if(isReadPageMoreThanPage){
@@ -49,7 +49,7 @@ const addBookHandler = (request, h) => {
         return response;
     }
     
-    if(isBookHasOwnProperty===false){
+    if(isBookHasOwnPropertyName==false){
         const response = h.response({
             status : "fail",
             message : "Gagal menambahkan buku. Mohon isi nama buku"
@@ -71,7 +71,6 @@ const addBookHandler = (request, h) => {
         }
     }
     
-    
     const response = h.response({
         status : "fail",
         message : "Buku gagal ditambahkan"
@@ -84,7 +83,34 @@ const getAllBooksHandler = () => ({
     status : 'success',
     data : {
         books,
-    },
+    }
 });
 
-module.exports = { addBookHandler, getAllBooksHandler };
+const getBookByIdHandler = (request, h) => {
+    const {id} = request.params;
+    
+
+    const book = books.filter((b) => b.id === id)[0];
+    
+    if (book !== undefined){
+        return {
+            status : 'success',
+            data: {
+                book,
+            },
+        };
+    }
+
+    const response = h.response({
+        status :'fail',
+        message : 'Buku tidak ditemukan'
+    });
+    response.code(404);
+    return response;
+
+};
+
+module.exports = { addBookHandler, 
+    getAllBooksHandler, 
+    getBookByIdHandler
+};
