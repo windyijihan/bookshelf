@@ -102,6 +102,7 @@ const getAllBooksHandler = (request, h) => {
         response.code(200);
         return response;
     }
+    
     if (reading !== undefined) {
         if (reading == 1) {
             const response = h.response({
@@ -134,7 +135,7 @@ const getAllBooksHandler = (request, h) => {
             return response;
         }
     }
-    if(finished !== undefined){
+    if (finished !== undefined){
         if (finished == 1) {
             const response = h.response({
                 status: 'success',
@@ -166,6 +167,7 @@ const getAllBooksHandler = (request, h) => {
             return response;
         }
     }
+
     const response = h.response({
         status: 'success',
         data: {
