@@ -297,19 +297,6 @@ const deleteBookByIdHandler = (request, h) => {
     return response;
 };
 
-// const getBookBasedOnQueryParam = (request, h) => {
-//     const { name } = request.query;
-//     console.log(name);
-
-//     const response = h.response({
-//         status : 'success',
-//         data : {
-//             books : books.filter(book => book.name === name)
-//         }
-//     })
-
-// };
-
 module.exports = {
     addBookHandler,
     getAllBooksHandler,
